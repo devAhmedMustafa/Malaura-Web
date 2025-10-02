@@ -1,0 +1,244 @@
+/*===== MALAURA DESIGN SYSTEM =====*/
+
+/* Import Design System Layers */
+@import '../styles/tokens.css';
+@import '../styles/utilities.css';
+@import '../styles/components.css';
+
+/*===== BASE STYLES =====*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--color-dark);
+  background-color: var(--color-white);
+  margin: var(--header-height) 0 0 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*===== TYPOGRAPHY RESET =====*/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-semi);
+  line-height: var(--leading-tight);
+  color: var(--color-dark);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-base);
+}
+
+p {
+  margin-bottom: var(--spacing-4);
+  line-height: var(--leading-relaxed);
+}
+
+/*===== LINK STYLES =====*/
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+
+a:hover {
+  color: var(--color-primary-alt);
+  text-decoration: underline;
+}
+
+/*===== LIST STYLES =====*/
+ul, ol {
+  list-style: none;
+}
+
+ul[class], ol[class] {
+  padding: 0;
+}
+
+/*===== IMAGE STYLES =====*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*===== FORM ELEMENT STYLES =====*/
+input, button, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/*===== ACCESSIBILITY =====*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/*===== SCROLLBAR STYLES =====*/
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-400);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+/*===== SELECTION STYLES =====*/
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/*===== LAYOUT CLASSES =====*/
+.l-header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+  background-color: var(--color-gray-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.l-main {
+  margin-top: var(--header-height);
+}
+
+/*===== GRID SYSTEM =====*/
+.bd-grid {
+  max-width: var(--max-width);
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 2rem;
+  width: calc(100% - 3rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .bd-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .bd-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*===== RESPONSIVE TYPOGRAPHY =====*/
+@media screen and (min-width: 768px) {
+  body {
+    font-size: var(--font-size-lg);
+  }
+  
+  h1 {
+    font-size: var(--font-size-5xl);
+  }
+  
+  h2 {
+    font-size: var(--font-size-4xl);
+  }
+  
+  h3 {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+/*===== UTILITY OVERRIDES =====*/
+/* Custom utility classes can be added here when needed */
+
+/*===== PRINT STYLES =====*/
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  
+  img {
+    page-break-inside: avoid;
+  }
+  
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
