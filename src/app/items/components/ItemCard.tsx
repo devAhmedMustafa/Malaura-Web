@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Item from "../models/Item";
+import Link from "next/link";
 
 interface ItemCardProps {
     item: Item;
@@ -14,6 +15,7 @@ export default function ItemCard({ item }: ItemCardProps) {
     };
 
     return (
+        <Link href={`/items/${item.id}`} passHref>
         <div className="product-card group cursor-pointer">
             {/* Product Image */}
             <div className="product-card-image">
@@ -32,6 +34,7 @@ export default function ItemCard({ item }: ItemCardProps) {
                         <Image
                             src={item.imageUrl}
                             alt={item.name}
+                            priority={true}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -99,5 +102,6 @@ export default function ItemCard({ item }: ItemCardProps) {
                 </div>
             </div>
         </div>
+        </Link>
     );
 }

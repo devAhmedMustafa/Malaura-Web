@@ -1,4 +1,4 @@
-import ItemsList from "./components/ItemsList";
+import ItemsListWithFilters from "./components/ItemsListWithFilters";
 
 export default function ItemsPage() {
     return (
@@ -30,7 +30,7 @@ export default function ItemsPage() {
             </section>
 
             {/* Main Content */}
-            <ItemsList />
+            <ItemsListWithFilters />
         </main>
     );
 }
