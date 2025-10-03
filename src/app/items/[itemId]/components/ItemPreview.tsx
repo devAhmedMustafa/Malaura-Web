@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ItemService from "../../services/ItemService";
 import Item from "../../models/Item";
+import { useCart } from "../../../cart/Cart.context";
 
 interface ItemPreviewProps {
     itemId: string;
@@ -12,6 +13,15 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
     const [item, setItem] = useState<Item | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [quantity, setQuantity] = useState(1);
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
+    const [showAddedMessage, setShowAddedMessage] = useState(false);
+    
+    const { addToCart, getItemQuantity, updateItemQuantity, isInCart } = useCart();
+    
+    // Get current cart quantity for this item
+    const cartQuantity = getItemQuantity(itemId);
+    const itemInCart = isInCart(itemId);
 
     // Fetch item data on component mount
     useEffect(() => {
@@ -44,6 +54,38 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
             style: 'currency',
             currency: 'EGP',
         }).format(price);
+    };
+
+    const handleAddToCart = async () => {
+        if (!item || !item.isAvailable) return;
+        
+        try {
+            setIsAddingToCart(true);
+            addToCart(itemId, quantity);
+            
+            // Show success message
+            setShowAddedMessage(true);
+            setTimeout(() => setShowAddedMessage(false), 3000);
+            
+        } catch (error) {
+            console.error('Failed to add item to cart:', error);
+        } finally {
+            setIsAddingToCart(false);
+        }
+    };
+
+    const handleIncreaseCartQuantity = () => {
+        updateItemQuantity(itemId, cartQuantity + 1);
+        setShowAddedMessage(true);
+        setTimeout(() => setShowAddedMessage(false), 2000);
+    };
+
+    const handleDecreaseCartQuantity = () => {
+        if (cartQuantity > 1) {
+            updateItemQuantity(itemId, cartQuantity - 1);
+        } else {
+            updateItemQuantity(itemId, 0); // This will remove the item
+        }
     };
 
     // Loading state
@@ -246,15 +288,98 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                             </div>
                         </div>
 
-                        {/* Action Buttons */}
+                        {/* Success Message */}
+                        {showAddedMessage && (
+                            <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center gap-2">
+                                <i className="fas fa-check-circle text-green-600"></i>
+                                <span className="text-sm font-medium">
+                                    {itemInCart ? 'Cart updated successfully!' : `${quantity} ${quantity === 1 ? 'item' : 'items'} added to cart successfully!`}
+                                </span>
+                            </div>
+                        )}
+
+                        {/* Dynamic Cart Actions */}
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-                            <button 
-                                className={`btn ${item.isAvailable ? 'btn-primary' : 'btn-disabled'} flex-1`}
-                                disabled={!item.isAvailable}
-                            >
-                                <i className="fas fa-shopping-cart mr-2"></i>
-                                {item.isAvailable ? 'Add to Cart' : 'Out of Stock'}
-                            </button>
+                            {item.isAvailable ? (
+                                itemInCart ? (
+                                    /* Item is in cart - show quantity controls */
+                                    <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                        <div className="flex items-center justify-between mb-3">
+                                            <span className="text-sm font-medium text-gray-700">In Cart:</span>
+                                            <span className="text-xs text-green-600 font-medium">✓ Added</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <button 
+                                                className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-all duration-200"
+                                                onClick={handleDecreaseCartQuantity}
+                                            >
+                                                <i className={`fas ${cartQuantity === 1 ? 'fa-trash' : 'fa-minus'} text-xs`}></i>
+                                            </button>
+                                            
+                                            <div className="flex-1 text-center">
+                                                <div className="text-2xl font-bold text-gray-900">{cartQuantity}</div>
+                                                <div className="text-xs text-gray-500">in cart</div>
+                                            </div>
+                                            
+                                            <button 
+                                                className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg hover:bg-primary hover:border-primary hover:text-white transition-all duration-200"
+                                                onClick={handleIncreaseCartQuantity}
+                                            >
+                                                <i className="fas fa-plus text-xs"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    /* Item not in cart - show add to cart with quantity selector */
+                                    <div className="flex-1 space-y-3">
+                                        <div className="flex items-center gap-3">
+                                            <label className="text-sm font-medium text-gray-700">Quantity:</label>
+                                            <div className="flex items-center border border-gray-200 rounded-lg">
+                                                <button 
+                                                    className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
+                                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                                    disabled={quantity <= 1}
+                                                >
+                                                    <i className="fas fa-minus text-xs"></i>
+                                                </button>
+                                                <span className="px-4 py-2 text-center font-medium min-w-[60px]">
+                                                    {quantity}
+                                                </span>
+                                                <button 
+                                                    className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
+                                                    onClick={() => setQuantity(quantity + 1)}
+                                                >
+                                                    <i className="fas fa-plus text-xs"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <button 
+                                            className="btn btn-primary w-full"
+                                            disabled={isAddingToCart}
+                                            onClick={handleAddToCart}
+                                        >
+                                            {isAddingToCart ? (
+                                                <>
+                                                    <i className="fas fa-spinner fa-spin mr-2"></i>
+                                                    Adding...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <i className="fas fa-shopping-cart mr-2"></i>
+                                                    Add to Cart
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                )
+                            ) : (
+                                /* Item out of stock */
+                                <button className="btn btn-disabled flex-1" disabled>
+                                    <i className="fas fa-times-circle mr-2"></i>
+                                    Out of Stock
+                                </button>
+                            )}
+                            
                             <button className="btn btn-outline">
                                 <i className="fas fa-heart mr-2"></i>
                                 Add to Wishlist
