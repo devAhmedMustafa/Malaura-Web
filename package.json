@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@iconify/icons-heroicons": "^1.2.9",
+    "@iconify/icons-mdi": "^1.2.48",
+    "@iconify/react": "^6.0.2",
     "axios": "^1.12.2",
     "next": "15.5.4",
     "react": "19.1.0",

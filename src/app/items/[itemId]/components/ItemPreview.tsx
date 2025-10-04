@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Icon } from '@iconify/react';
 import ItemService from "../../services/ItemService";
 import Item from "../../models/Item";
 import { useCart } from "../../../cart/Cart.context";
@@ -120,7 +121,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
             <div className="container mx-auto px-4 py-8 sm:py-12">
                 <div className="text-center max-w-md mx-auto">
                     <div className="text-4xl sm:text-5xl md:text-6xl text-error mb-3 sm:mb-4">
-                        <i className="fas fa-exclamation-triangle"></i>
+                        <Icon icon="mdi:alert-triangle" />
                     </div>
                     <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-dark mb-2 sm:mb-3">
                         {error === 'Item not found' ? 'Item Not Found' : 'Something went wrong'}
@@ -136,14 +137,14 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                             className="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
                             onClick={() => window.location.reload()}
                         >
-                            <i className="fas fa-refresh mr-2"></i>
+                            <Icon icon="mdi:refresh" className="mr-2" />
                             Try Again
                         </button>
                         <button 
                             className="btn btn-outline btn-sm sm:btn-md w-full sm:w-auto"
                             onClick={() => window.history.back()}
                         >
-                            <i className="fas fa-arrow-left mr-2"></i>
+                            <Icon icon="mdi:arrow-left" className="mr-2" />
                             Go Back
                         </button>
                     </div>
@@ -158,7 +159,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
             <div className="container mx-auto px-4 py-8 sm:py-12">
                 <div className="text-center max-w-md mx-auto">
                     <div className="text-4xl sm:text-5xl md:text-6xl text-gray-300 mb-3 sm:mb-4">
-                        <i className="fas fa-search"></i>
+                        <Icon icon="mdi:magnify" />
                     </div>
                     <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-dark mb-2 sm:mb-3">Item Not Found</h2>
                     <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
@@ -168,7 +169,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                         className="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
                         onClick={() => window.history.back()}
                     >
-                        <i className="fas fa-arrow-left mr-2"></i>
+                        <Icon icon="mdi:arrow-left" className="mr-2" />
                         Go Back
                     </button>
                 </div>
@@ -291,7 +292,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                         {/* Success Message */}
                         {showAddedMessage && (
                             <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center gap-2">
-                                <i className="fas fa-check-circle text-green-600"></i>
+                                <Icon icon="mdi:check-circle" className="text-green-600" />
                                 <span className="text-sm font-medium">
                                     {itemInCart ? 'Cart updated successfully!' : `${quantity} ${quantity === 1 ? 'item' : 'items'} added to cart successfully!`}
                                 </span>
@@ -313,7 +314,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                                 className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-all duration-200"
                                                 onClick={handleDecreaseCartQuantity}
                                             >
-                                                <i className={`fas ${cartQuantity === 1 ? 'fa-trash' : 'fa-minus'} text-xs`}></i>
+                                                <Icon icon={cartQuantity === 1 ? "mdi:trash-can" : "mdi:minus"} className="text-sm" />
                                             </button>
                                             
                                             <div className="flex-1 text-center">
@@ -325,7 +326,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                                 className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg hover:bg-primary hover:border-primary hover:text-white transition-all duration-200"
                                                 onClick={handleIncreaseCartQuantity}
                                             >
-                                                <i className="fas fa-plus text-xs"></i>
+                                                <Icon icon="mdi:plus" className="text-sm" />
                                             </button>
                                         </div>
                                     </div>
@@ -340,7 +341,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                                                     disabled={quantity <= 1}
                                                 >
-                                                    <i className="fas fa-minus text-xs"></i>
+                                                    <Icon icon="mdi:minus" className="text-sm" />
                                                 </button>
                                                 <span className="px-4 py-2 text-center font-medium min-w-[60px]">
                                                     {quantity}
@@ -349,7 +350,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                                     className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
                                                     onClick={() => setQuantity(quantity + 1)}
                                                 >
-                                                    <i className="fas fa-plus text-xs"></i>
+                                                    <Icon icon="mdi:plus" className="text-sm" />
                                                 </button>
                                             </div>
                                         </div>
@@ -360,12 +361,12 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                         >
                                             {isAddingToCart ? (
                                                 <>
-                                                    <i className="fas fa-spinner fa-spin mr-2"></i>
+                                                    <Icon icon="mdi:loading" className="mr-2 animate-spin" />
                                                     Adding...
                                                 </>
                                             ) : (
                                                 <>
-                                                    <i className="fas fa-shopping-cart mr-2"></i>
+                                                    <Icon icon="mdi:cart" className="mr-2" />
                                                     Add to Cart
                                                 </>
                                             )}
@@ -375,13 +376,13 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                             ) : (
                                 /* Item out of stock */
                                 <button className="btn btn-disabled flex-1" disabled>
-                                    <i className="fas fa-times-circle mr-2"></i>
+                                    <Icon icon="mdi:close-circle" className="mr-2" />
                                     Out of Stock
                                 </button>
                             )}
                             
                             <button className="btn btn-outline">
-                                <i className="fas fa-heart mr-2"></i>
+                                <Icon icon="mdi:heart-outline" className="mr-2" />
                                 Add to Wishlist
                             </button>
                         </div>
