@@ -12,10 +12,12 @@
     "@iconify/icons-heroicons": "^1.2.9",
     "@iconify/icons-mdi": "^1.2.48",
     "@iconify/react": "^6.0.2",
+    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.12.2",
     "next": "15.5.4",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-router-dom": "^7.9.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
