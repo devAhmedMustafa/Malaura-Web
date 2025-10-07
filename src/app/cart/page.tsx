@@ -331,10 +331,10 @@ export default function CartPage() {
                                         </div>
                                     </div>
 
-                                    <button className={styles.checkoutButton}>
+                                    <Link href="/checkout" className={styles.checkoutButton}>
                                         <Icon icon="mdi:credit-card" />
                                         Proceed to Checkout
-                                    </button>
+                                    </Link>
 
                                     <Link 
                                         href="/items" 

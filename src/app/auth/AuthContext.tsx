@@ -22,8 +22,8 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
-    const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | null>(null);
+    const [user, setUser] = useState<User | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null);
+    const [token, setToken] = useState<string | null>(localStorage.getItem('token') || null);
     const [isInitialized, setIsInitialized] = useState(false);
 
     function isAuthenticated(): boolean {
@@ -33,16 +33,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
-        } else {
-            localStorage.removeItem('user');
         }
     }, [user]);
 
     useEffect(() => {
         if (token) {
             localStorage.setItem('token', token);
-        } else {
-            localStorage.removeItem('token');
         }
     }, [token]);
 
