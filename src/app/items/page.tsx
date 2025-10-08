@@ -4,24 +4,28 @@ import { useRouter } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import { useCart } from '../cart/Cart.context';
 import ItemsListWithFilters from "./components/ItemsListWithFilters";
+import Image from 'next/image';
 
 export default function ItemsPage() {
     const router = useRouter();
     const { cartItemCount } = useCart();
 
     return (
-        <main className="l-main">
+        <main>
             {/* Header with Logo and Breadcrumb Navigation */}
             <section className="bg-gray-100 py-6">
                 <div className="container mx-auto px-4">
                     {/* Logo */}
-                    {/* <div className="flex justify-center mb-4">
-                        <img 
-                            src="/logo.png" 
-                            alt="Malaura Logo" 
-                            className=" w-auto object-contain"
+                    <div className="flex justify-center mb-4">
+                        <Image 
+                            src="/logo_tiny.png"
+                            alt="Malaura Logo"
+                            className="w-auto object-contain"
+                            width={50}
+                            height={50}
+                            priority
                         />
-                    </div> */}
+                    </div>
                     
                     {/* Navigation Header */}
                     <div className="flex justify-between items-center mb-4">

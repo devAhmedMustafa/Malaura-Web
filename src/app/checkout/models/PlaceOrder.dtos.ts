@@ -38,7 +38,7 @@ export class PlaceOrderRequest {
         this.items = data.items;
         this.paymentMethod = data.paymentMethod;
         
-        if (this.orderType === 1 && data.address) {
+        if (this.orderType === 2 && data.address) {
             this.deliveryDetails = {
                 address: data.address,
                 latitude: data.latitude,

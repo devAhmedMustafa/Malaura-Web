@@ -203,7 +203,7 @@ export default function OrdersPage() {
                                     {/* Order Header */}
                                     <div className={styles.orderHeader}>
                                         <div className={styles.orderInfo}>
-                                            <h3 className={styles.orderId}>Order #{order.orderId}</h3>
+                                            <h3 className={styles.orderId}>Order #{order.orderId.split('-')[0]}</h3>
                                             <p className={styles.orderDate}>{formatDate(order.orderDate)}</p>
                                         </div>
                                         <div className={styles.orderStatus}>
