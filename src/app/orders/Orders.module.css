@@ -117,9 +117,17 @@
   margin-bottom: var(--spacing-6);
   background: var(--color-white);
   padding: var(--spacing-2);
-  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   overflow-x: auto;
+}
+
+.filterTabs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.filterTabs::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
 }
 
 .filterTab {

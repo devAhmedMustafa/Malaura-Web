@@ -32,7 +32,6 @@
 
 .searchIcon {
   position: absolute;
-  left: calc(var(--spacing-md) + var(--spacing-sm));
   color: var(--color-gray-400);
   font-size: 1.25rem;
   z-index: 1;

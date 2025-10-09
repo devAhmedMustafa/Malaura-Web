@@ -477,27 +477,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
         />
       </div>
 
-      {/* Selected Address Display */}
-      {currentAddress && (
-        <div className={styles.addressDisplay}>
-          <Icon icon="mdi:map-marker" className={styles.addressIcon} />
-          <div className={styles.addressText}>
-            <strong>Selected Location:</strong>
-            <p>{currentAddress}</p>
-          </div>
-        </div>
-      )}
 
-      {/* Instructions */}
-      <div className={styles.instructions}>
-        <p>
-          <Icon icon="mdi:information" />
-          {currentAddress 
-            ? "Perfect! You can adjust the marker if needed or search for a different address"
-            : "Click on the map, drag the marker, or search for your delivery address"
-          }
-        </p>
-      </div>
     </div>
   );
 };

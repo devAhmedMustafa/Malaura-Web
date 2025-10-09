@@ -28,5 +28,17 @@ export default class OrderService {
         });
         return res.data;
     }
+
+    static async cancelOrder(orderId: string) : Promise<void> {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('User is not authenticated');
+        }
+        await api.put(`/order/cancel/${orderId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    }
     
 }

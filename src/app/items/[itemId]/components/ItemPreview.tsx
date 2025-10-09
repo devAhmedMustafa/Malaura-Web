@@ -337,7 +337,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                             <label className="text-sm font-medium text-gray-700">Quantity:</label>
                                             <div className="flex items-center border border-gray-200 rounded-lg">
                                                 <button 
-                                                    className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
+                                                    className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors rounded-full"
                                                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                                                     disabled={quantity <= 1}
                                                 >
@@ -347,7 +347,7 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                                     {quantity}
                                                 </span>
                                                 <button 
-                                                    className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
+                                                    className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors rounded-full"
                                                     onClick={() => setQuantity(quantity + 1)}
                                                 >
                                                     <Icon icon="mdi:plus" className="text-sm" />
@@ -381,10 +381,6 @@ export default function ItemPreview({ itemId }: ItemPreviewProps) {
                                 </button>
                             )}
                             
-                            <button className="btn btn-outline">
-                                <Icon icon="mdi:heart-outline" className="mr-2" />
-                                Add to Wishlist
-                            </button>
                         </div>
                     </div>
                 </div>

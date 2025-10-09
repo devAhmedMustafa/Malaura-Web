@@ -7,6 +7,7 @@ import { useAuth } from '../auth/AuthContext';
 import OrderService from './services/orderService';
 import { Order } from './models/Order.dto';
 import styles from './Orders.module.css';
+import Navbar from '@/components/Navbar';
 
 export default function OrdersPage() {
     const router = useRouter();
@@ -15,7 +16,7 @@ export default function OrdersPage() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedFilter, setSelectedFilter] = useState<'all' | 'pending' | 'completed' | 'cancelled'>('all');
+    const [selectedFilter, setSelectedFilter] = useState<'all' | 'pending' | 'delivered' | 'cancelled'>('all');
 
     // Redirect if not authenticated
     useEffect(() => {
@@ -136,28 +137,16 @@ export default function OrdersPage() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.maxWidth}>
-                {/* Header */}
-                <div className={styles.header}>
-                    <button 
-                        onClick={() => router.back()}
-                        className={styles.backButton}
-                    >
-                        <Icon icon="mdi:arrow-left" />
-                        Back
-                    </button>
-                    <div>
-                        <h1 className={styles.title}>My Orders</h1>
-                        <p className={styles.subtitle}>Track your order history and status</p>
-                    </div>
-                </div>
 
+            <div className={styles.maxWidth}>
+
+                <Navbar />
                 {/* Filter Tabs */}
                 <div className={styles.filterTabs}>
                     {[
                         { key: 'all', label: 'All Orders', count: orders.length },
                         { key: 'pending', label: 'Pending', count: orders.filter(o => o.orderStatus.toLowerCase() === 'pending').length },
-                        { key: 'completed', label: 'Completed', count: orders.filter(o => ['ready', 'delivered'].includes(o.orderStatus.toLowerCase())).length },
+                        { key: 'delivered', label: 'Delivered', count: orders.filter(o => ['ready', 'delivered'].includes(o.orderStatus.toLowerCase())).length },
                         { key: 'cancelled', label: 'Cancelled', count: orders.filter(o => o.orderStatus.toLowerCase() === 'cancelled').length },
                     ].map(tab => (
                         <button

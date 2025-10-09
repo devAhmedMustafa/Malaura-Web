@@ -120,6 +120,21 @@ export default function OrderDetailsPage() {
         }
     };
 
+    function handleCancelOrder() {
+        if (!order) return;
+        if (confirm('Are you sure you want to cancel this order?')) {
+            OrderService.cancelOrder(order.orderId)
+                .then(() => {
+                    alert('Order cancelled successfully');
+                    router.push('/orders');
+                })
+                .catch((error) => {
+                    alert('Failed to cancel order');
+                    console.error(error);
+                });
+        }
+    }
+
     if (loading) {
         return (
             <div className={styles.container}>
@@ -181,7 +196,7 @@ export default function OrderDetailsPage() {
                         Back to Orders
                     </button>
                     <div>
-                        <h1 className={styles.title}>Order #{order.orderId}</h1>
+                        <h1 className={styles.title} hidden>Order #{order.orderId}</h1>
                         <p className={styles.orderDate}>{formatDate(order.orderDate)}</p>
                     </div>
                 </div>
@@ -269,6 +284,7 @@ export default function OrderDetailsPage() {
                                         <div className={styles.itemQuantity}>
                                             <span>x{orderItem.quantity}</span>
                                         </div>
+
                                         <div className={styles.itemPrice}>
                                             {orderItem.item?.price ? (
                                                 <>
@@ -336,6 +352,20 @@ export default function OrderDetailsPage() {
                             </div>
                         </div>
                     </div>
+
+                    <div className={styles.actions}>
+                        <button onClick={handleCancelOrder} style={{
+                            width: '100%',
+                            color: 'var(--color-white)',
+                            fontWeight: 'bold',
+                            display: order.orderStatus.toLowerCase() === 'pending' ? 'inline-block' : 'none',
+                            backgroundColor: '#aa0000',
+                            borderRadius: '8px',
+                            padding: '12px',
+                            border: 'none',
+                        }} >Cancel Order</button>
+                    </div>
+
                 </div>
             </div>
         </div>

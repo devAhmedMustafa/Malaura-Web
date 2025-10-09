@@ -122,6 +122,7 @@ export default function FilterBar({ items, onFilterChange, onSearchChange }: Fil
             <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
                 {/* Main Filter Bar */}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    
                     {/* Search Input */}
                     <div className="flex-1 w-full sm:min-w-[250px] md:min-w-[300px]">
                         <div className="relative">
@@ -130,7 +131,7 @@ export default function FilterBar({ items, onFilterChange, onSearchChange }: Fil
                                 placeholder="Search products..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-9 sm:pl-10 pr-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                className="w-full px-3 pr-4 py-2 sm:py-2.5 text-sm sm:text-base border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                             />
                             <div className="absolute left-2.5 sm:left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm sm:text-base">
                                 <i className="fas fa-search"></i>
@@ -154,7 +155,7 @@ export default function FilterBar({ items, onFilterChange, onSearchChange }: Fil
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                                className="flex-1 sm:flex-none px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                className="flex-1 sm:flex-none px-2 sm:px-3 py-2 sm:py-2 text-xs sm:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                             >
                                 <option value="newest">Newest</option>
                                 <option value="price-low">Price: Low to High</option>
@@ -227,7 +228,7 @@ export default function FilterBar({ items, onFilterChange, onSearchChange }: Fil
                                         const itemCount = items.filter(item => item.category === category).length;
                                         return (
                                             <label key={category} className="flex items-center justify-between cursor-pointer hover:bg-white rounded p-1.5 sm:p-2 transition-colors">
-                                                <div className="flex items-center min-w-0">
+                                                <div className="flex items-center min-w-0 gap-1">
                                                     <input
                                                         type="checkbox"
                                                         checked={selectedCategories.includes(category)}
@@ -286,14 +287,14 @@ export default function FilterBar({ items, onFilterChange, onSearchChange }: Fil
                                             placeholder="Min"
                                             value={priceRange.min}
                                             onChange={(e) => setPriceRange(prev => ({ ...prev, min: Number(e.target.value) || 0 }))}
-                                            className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary"
+                                            className="flex-1 w-1/2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary"
                                         />
                                         <input
                                             type="number"
                                             placeholder="Max"
                                             value={priceRange.max}
                                             onChange={(e) => setPriceRange(prev => ({ ...prev, max: Number(e.target.value) || actualPriceRange.max }))}
-                                            className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary"
+                                            className="flex-1 w-1/2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary"
                                         />
                                     </div>
                                 </div>
@@ -306,7 +307,7 @@ export default function FilterBar({ items, onFilterChange, onSearchChange }: Fil
                                     Options
                                 </h3>
                                 <div className="space-y-2 sm:space-y-3">
-                                    <label className="flex items-start cursor-pointer hover:bg-white rounded p-1.5 sm:p-2 transition-colors">
+                                    <label className="flex items-start cursor-pointer hover:bg-white rounded p-1.5 sm:p-2 transition-colors gap-1">
                                         <input
                                             type="checkbox"
                                             checked={showOnlyAvailable}
