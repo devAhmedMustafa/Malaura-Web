@@ -1,0 +1,95 @@
+@import '../../styles/tokens.css';
+
+.hero {
+  /* Make the hero take the full viewport height but remain in document flow */
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+  align-items: center;
+  padding: var(--spacing-8) var(--spacing-3);
+  background: linear-gradient(180deg, rgba(251,248,242,0.95) 0%, rgba(245,243,240,0.85) 100%);
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-12);
+    padding: var(--spacing-12) var(--spacing-6);
+  }
+}
+
+.content {
+  max-width: 56ch;
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.05;
+  color: var(--color-white);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.subtitle {
+  color: var(--color-gray-300);
+  font-size: var(--font-size-sm);
+  margin: 0 0 var(--spacing-6) 0;
+}
+
+.ctas {
+  display:flex; gap: var(--spacing-3); align-items:center;
+}
+
+.primary {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--color-white);
+  padding: calc(var(--spacing-2)) calc(var(--spacing-4));
+  text-decoration:none;
+  font-weight: var(--font-weight-semi);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+.secondary {
+  background: transparent; color: var(--color-white); border: 1px solid var(--color-gray-200);
+  padding: calc(var(--spacing-2)) calc(var(--spacing-4)); border-radius: var(--radius-md); text-decoration:none;
+}
+
+.media {
+  position: relative; width: 100%; height: 320px; overflow: hidden; box-shadow: var(--shadow-base);
+}
+
+@media (min-width: 768px) {
+  .media { height: 420px; }
+}
+
+@media (min-width: 1024px) {
+  .media { height: 560px; }
+}
+
+.image {
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.02);
+  transform-origin: center center;
+  transition: transform var(--transition-base);
+}
+
+.media:hover .image { transform: scale(1.02); }
+
+/* When hero is fixed, allow the image to fully cover and be centered */
+
+.hero .media { height: 100%; position: absolute; inset: 0; }
+
+/* Overlay content sits above the image */
+.hero .content { position: relative; z-index: 2; color: var(--color-dark); }
+
+/* Add a utility for page to push content below fixed hero */
+.heroSpacer { height: 100vh; width: 100%; }
+
+/* For external usage: provide a namespaced class in case page.tsx wants CSS-module import later */
+.spacerExternal { height: 100vh; width: 100%; }

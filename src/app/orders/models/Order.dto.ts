@@ -4,7 +4,7 @@ export interface Order {
 
     orderId: string;
     customerId: string;
-    customerName: string;
+    customer: string;
     customerPhone: string;
     orderItems?: { itemId: string; quantity: number; item?: Item }[];
     paymentMethod: 'cash';

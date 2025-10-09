@@ -232,7 +232,7 @@ export default function OrderDetailsPage() {
                         <div className={styles.infoList}>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>Name:</span>
-                                <span className={styles.infoValue}>{order.customerName}</span>
+                                <span className={styles.infoValue}>{order.customer}</span>
                             </div>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>Phone:</span>

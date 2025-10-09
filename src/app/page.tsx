@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Link from 'next/link';
+import LandingHero from './components/LandingHero';
 import OrderService from './orders/services/orderService';
 
 import { Order } from './orders/models/Order.dto';
@@ -38,7 +39,8 @@ export default function Home() {
       <Navbar />
 
       <main className="flex-1 w-full">
-        <section className="bg-gradient-to-b from-white to-gray-50 py-12">
+  <LandingHero />
+  <section className="bg-gradient-to-b from-white to-gray-50 py-12">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Welcome to Malaura</h1>
             <p className="text-gray-600 max-w-2xl mx-auto mb-6">Discover handcrafted goods, curated collections and support independent creators across Egypt.</p>
